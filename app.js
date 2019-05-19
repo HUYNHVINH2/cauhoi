@@ -1,5 +1,6 @@
 let express = require('express');
 const AskColl = require('./ask');
+const UserColl = require('./user');
 const PlayerColl = require('./player');
 // Initialize the app
 let app = express();
@@ -23,6 +24,10 @@ mongoose.connection.once('open', () => {
     console.log('working in ' + port);
   })
 })
+app.get('/',async(req, res) =>{
+    let data = await UserColl.find();
+    res.json(data);
+   })
 app.get('/getAsk',async(req, res) =>{
    let data = await AskColl.find();
    res.json(data);
